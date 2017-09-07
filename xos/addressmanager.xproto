@@ -1,14 +1,15 @@
 option legacy="True";
 option kind="addressmanager";
 option name="addressmanager";
+option app_label = "addressmanager";
 
 message AddressManagerService (Service){
     option verbose_name="Address Manager Service";
 }
 
 message AddressManagerServiceInstance (ServiceInstance){
-     option verbose_name="Address Manager Service Instance";
-     optional string public_ip = 1 [db_index = False, max_length = 30, null = True, content_type = "stripped", blank = True];
-     optional string public_mac = 2 [db_index = False, max_length = 30, null = True, content_type = "stripped", blank = True];
-     optional manytoone address_pool->AddressPool:address_manager_service_instances = 3 [db_index = True, null = True, blank = True];
+    option verbose_name="Address Manager Service Instance";
+    optional string public_ip = 1 [db_index = False, max_length = 30, null = True, content_type = "stripped", blank = True];
+    optional string public_mac = 2 [db_index = False, max_length = 30, null = True, content_type = "stripped", blank = True];
+    optional manytoone address_pool->AddressPool:address_manager_service_instances = 3 [db_index = True, null = True, blank = True];
 }
