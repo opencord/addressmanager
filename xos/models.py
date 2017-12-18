@@ -19,13 +19,14 @@ from django.db.models import *
 from xos.exceptions import *
 from models_decl import *
 
+def ip_to_mac(ip):
+    (a, b, c, d) = ip.split('.')
+    return "02:42:%02x:%02x:%02x:%02x" % (int(a), int(b), int(c), int(d))
+
 class AddressManagerService (AddressManagerService_decl):
     class Meta:
         proxy = True
 
-    def ip_to_mac(self, ip):
-        (a, b, c, d) = ip.split('.')
-        return "02:42:%02x:%02x:%02x:%02x" % (int(a), int(b), int(c), int(d))
 
     def get_gateways(self):
         gateways = []
@@ -41,18 +42,20 @@ class AddressManagerService (AddressManagerService_decl):
             raise Exception("Address Manager unable to find addresspool %s" % name)
         return ap[0]
 
+    # TODO remove me once the old TOSCA engine is gone
     def get_service_instance(self, **kwargs):
         address_pool_name = kwargs.pop("address_pool_name")
 
         ap = self.get_address_pool(address_pool_name)
 
-        ip = ap.get_address()
-        if not ip:
-            raise Exception("AddressPool '%s' has run out of addresses." % ap.name)
+        # ip = ap.get_address()
+        # if not ip:
+        #     raise Exception("AddressPool '%s' has run out of addresses." % ap.name)
 
         t = AddressManagerServiceInstance(owner=self, **kwargs)
-        t.public_ip = ip
-        t.public_mac = self.ip_to_mac(ip)
+        # NOTE this will be added updated on save
+        # t.public_ip = ip
+        # t.public_mac = ip_to_mac(ip)
         t.address_pool_id = ap.id
         t.save()
 
@@ -101,3 +104,13 @@ class AddressManagerServiceInstance (AddressManagerServiceInstance_decl):
         self.cleanup_addresspool()
         super(AddressManagerServiceInstance, self).delete(*args, **kwargs)
 
+    def save(self, *args, **kwds):
+        """
+        We need to get an ip from addresspool when we create this model
+        """
+        print self.name, self.id, self.public_ip
+        if not self.id and not self.public_ip:
+            self.public_ip = self.address_pool.get_address()
+            self.public_mac = ip_to_mac(self.public_ip)
+        print self.name, self.id, self.public_ip
+        super(AddressManagerServiceInstance, self).save(*args, **kwds)
