@@ -108,9 +108,7 @@ class AddressManagerServiceInstance (AddressManagerServiceInstance_decl):
         """
         We need to get an ip from addresspool when we create this model
         """
-        print self.name, self.id, self.public_ip
         if not self.id and not self.public_ip:
             self.public_ip = self.address_pool.get_address()
             self.public_mac = ip_to_mac(self.public_ip)
-        print self.name, self.id, self.public_ip
         super(AddressManagerServiceInstance, self).save(*args, **kwds)
