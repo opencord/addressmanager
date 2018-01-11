@@ -29,6 +29,3 @@ topology_template:
           base_url: file:///opt/xos_services/addressmanager/xos/
           # The following will concatenate with base_url automatically, if
           # base_url is non-null.
-          xproto: ./
-          tosca_custom_types: addressmanager.yaml
-          tosca_resource: tosca/resources/addressmanagerservice.py

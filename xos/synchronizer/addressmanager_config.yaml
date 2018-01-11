@@ -14,9 +14,12 @@
 # limitations under the License.
 
 
-name: addressmanager-synchronizer
+name: addressmanager
 accessor:
   username: xosadmin@opencord.org
   password: "@/opt/xos/services/addressmanager/credentials/xosadmin@opencord.org"
+required_models:
+  - AddressManagerServiceInstance
 dependency_graph: "/opt/xos/synchronizers/addressmanager/model-deps"
 model_policies_dir: "/opt/xos/synchronizers/addressmanager/model_policies"
+models_dir: "/opt/xos/synchronizers/addressmanager/models"
