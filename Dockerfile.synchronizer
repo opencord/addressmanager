@@ -13,13 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This Dockerfile is DEPRECATED and will be removed imminently.
 
 # xosproject/addressmanager-synchronizer
 
 FROM xosproject/xos-synchronizer-base:candidate
 
-ADD . /opt/xos/synchronizers/addressmanager
+ADD xos/synchronizer /opt/xos/synchronizers/addressmanager
+ADD VERSION /opt/xos/synchronizers/addressmanager/
 
 ENTRYPOINT []
 
