@@ -12,16 +12,3 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-
-name: addressmanager
-accessor:
-  username: xosadmin@opencord.org
-  password: "@/opt/xos/services/addressmanager/credentials/xosadmin@opencord.org"
-required_models:
-  - AddressManagerServiceInstance
-  - FabricService
-dependency_graph: "/opt/xos/synchronizers/addressmanager/model-deps"
-model_policies_dir: "/opt/xos/synchronizers/addressmanager/model_policies"
-models_dir: "/opt/xos/synchronizers/addressmanager/models"
-steps_dir: "/opt/xos/synchronizers/addressmanager/steps"

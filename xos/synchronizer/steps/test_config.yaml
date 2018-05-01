@@ -14,14 +14,17 @@
 # limitations under the License.
 
 
-name: addressmanager
+name: test-model-policies
 accessor:
   username: xosadmin@opencord.org
-  password: "@/opt/xos/services/addressmanager/credentials/xosadmin@opencord.org"
-required_models:
-  - AddressManagerServiceInstance
-  - FabricService
-dependency_graph: "/opt/xos/synchronizers/addressmanager/model-deps"
-model_policies_dir: "/opt/xos/synchronizers/addressmanager/model_policies"
-models_dir: "/opt/xos/synchronizers/addressmanager/models"
-steps_dir: "/opt/xos/synchronizers/addressmanager/steps"
+  password: "sample"
+  kind: "testframework"
+logging:
+  version: 1
+  handlers:
+    console:
+      class: logging.StreamHandler
+  loggers:
+    'multistructlog':
+      handlers:
+          - console

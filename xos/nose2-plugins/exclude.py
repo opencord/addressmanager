@@ -13,15 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+import os
 
-name: addressmanager
-accessor:
-  username: xosadmin@opencord.org
-  password: "@/opt/xos/services/addressmanager/credentials/xosadmin@opencord.org"
-required_models:
-  - AddressManagerServiceInstance
-  - FabricService
-dependency_graph: "/opt/xos/synchronizers/addressmanager/model-deps"
-model_policies_dir: "/opt/xos/synchronizers/addressmanager/model_policies"
-models_dir: "/opt/xos/synchronizers/addressmanager/models"
-steps_dir: "/opt/xos/synchronizers/addressmanager/steps"
+from nose2.events import Plugin
+
+log = logging.getLogger('nose2.plugins.excludeignoredfiles')
+
+class ExcludeIgnoredFiles(Plugin):
+    commandLineSwitch = (None, 'exclude-ignored-files', 'Exclude that which should be excluded')
+
+    def matchPath(self, event):
+        if event.path.endswith(".py"):
+            text = open(event.path, "r").read()
+            if "test_framework: ignore" in text.lower():
+                log.info("Ignoring %s" % event.path)
+                event.handled = True
+                return False
