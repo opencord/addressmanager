@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,15 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # xosproject/addressmanager-synchronizer
 
 FROM xosproject/xos-synchronizer-base:candidate
 
-ADD xos/synchronizer /opt/xos/synchronizers/addressmanager
-ADD VERSION /opt/xos/synchronizers/addressmanager/
-
-ENTRYPOINT []
+COPY xos/synchronizer /opt/xos/synchronizers/addressmanager
+COPY VERSION /opt/xos/synchronizers/addressmanager/
 
 WORKDIR "/opt/xos/synchronizers/addressmanager"
 
@@ -54,4 +50,5 @@ LABEL org.label-schema.schema-version=$org_label_schema_schema_version \
       org.opencord.component.xos.vcs-url=$org_opencord_component_xos_vcs_url \
       org.opencord.component.xos.vcs-ref=$org_opencord_component_xos_vcs_ref
 
-CMD bash -c "service filebeat start; cd /opt/xos/synchronizers/addressmanager; ./run.sh"
+CMD ["/usr/bin/python", "/opt/xos/synchronizers/addressmanager/addressmanager-synchronizer.py"]
+
