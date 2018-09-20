@@ -14,7 +14,7 @@
 
 # xosproject/addressmanager-synchronizer
 
-FROM xosproject/xos-synchronizer-base:2.0.0
+FROM xosproject/xos-synchronizer-base:2.1.9
 
 COPY xos/synchronizer /opt/xos/synchronizers/addressmanager
 COPY VERSION /opt/xos/synchronizers/addressmanager/
