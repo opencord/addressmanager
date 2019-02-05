@@ -14,8 +14,8 @@
 # limitations under the License.
 
 import requests
-from synchronizers.new_base.syncstep import SyncStep, DeferredException
-from synchronizers.new_base.modelaccessor import *
+from xossynchronizer.steps.syncstep import SyncStep, DeferredException
+from xossynchronizer.modelaccessor import *
 
 from xosconfig import Config
 from multistructlog import create_logger
